@@ -283,7 +283,7 @@ const Admin = () => {
 									</Heading>
 									<NameCoin value="USDT(سوريا)" src={usdt} />
 									<NameCoin value="USDT(مصر)" src={usdt} />
-									<NameCoin value="Payear" src={pr} />
+									<NameCoin value="Payeer" src={pr} />
 									<NameCoin value="Paypal" src={py} />
 								</Box>
 							</Box>
