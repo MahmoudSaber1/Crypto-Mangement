@@ -7,10 +7,10 @@ const path = require("path");
 
 const app = express();
 const PORT = 5000;
-require("dotenv").config();
 
 app.use(express.json());
 app.use(cors());
+require("dotenv").config();
 
 mongoose.connect(
   process.env.DB,
