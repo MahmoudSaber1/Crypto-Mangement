@@ -10,7 +10,6 @@ import {
 	Image,
 	Input,
 	InputGroup,
-	InputLeftAddon,
 	InputLeftElement,
 	Radio,
 	RadioGroup,
@@ -29,7 +28,12 @@ import { ArrowDownIcon, ArrowUpIcon } from "@chakra-ui/icons";
 const PriceSell = ({ value }) => {
 	return (
 		<FormControl isReadOnly>
-			<Input type="text" value={value} />
+			<Input
+				type="text"
+				value={value}
+				fontSize={{ md: "18", base: "12" }}
+				padding={{ md: "1rem", base: ".45rem" }}
+			/>
 		</FormControl>
 	);
 };
@@ -43,7 +47,13 @@ const PriceBuy = ({ value, arrowUp, arrowDown }) => {
 						{arrowUp ? <ArrowUpIcon /> : <ArrowDownIcon />}
 					</Badge>
 				</InputLeftElement>
-				<Input pr="1.5rem" type="text" value={value} />
+				<Input
+					pr="1.5rem"
+					type="text"
+					value={value}
+					fontSize={{ md: "18", base: "12" }}
+					padding={{ md: "1rem", base: ".45rem" }}
+				/>
 			</InputGroup>
 		</FormControl>
 	);
@@ -53,11 +63,22 @@ const NameCoin = ({ value, src }) => {
 	return (
 		<InputGroup>
 			<FormControl isReadOnly>
-				<Input type="tel" value={value} />
+				<InputGroup size="md">
+					<InputLeftElement>
+						<Image
+							boxSize={{ md: "100%", base: "50%" }}
+							objectFit="cover"
+							src={src}
+						/>
+					</InputLeftElement>
+					<Input
+						type="tel"
+						value={value}
+						fontSize={{ md: "18", base: "10" }}
+						padding={{ md: "1rem", base: ".45rem" }}
+					/>
+				</InputGroup>
 			</FormControl>
-			<InputLeftAddon
-				children={<Image boxSize="100%" objectFit="cover" src={src} />}
-			/>
 		</InputGroup>
 	);
 };
@@ -145,15 +166,15 @@ const Crypto = () => {
 					<Box
 						display="flex"
 						justifyContent="space-between"
-						flexDirection={{ md: "row", base: "column" }}
-						gap="8"
+						flexDirection={{ md: "row", base: "row" }}
+						gap={{ md: "8", base: "1" }}
 						boxShadow="dark-lg"
 						w="full"
 						p="3"
 						textAlign="center"
 					>
 						<Box w="full" display="flex" flexDirection="column" gap="6">
-							<Heading fontSize={{ sm: "xl", base: "sm" }} color="#F2A900">
+							<Heading fontSize={{ sm: "xl", base: "12" }} color="#F2A900">
 								سعر البيع
 							</Heading>
 							<PriceSell value={PriceSell1} />
@@ -201,7 +222,7 @@ const Crypto = () => {
 						display="flex"
 						alignItems="center"
 						flexDirection="column"
-						w="50%"
+						w={{ md: "50%", base: "100%" }}
 						p="5"
 						gap="8"
 					>
