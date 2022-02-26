@@ -6,10 +6,8 @@ import {
 	FormControl,
 	FormLabel,
 	Heading,
-	Image,
 	Input,
 	InputGroup,
-	InputLeftAddon,
 	InputLeftElement,
 	VStack,
 } from "@chakra-ui/react";
@@ -19,7 +17,9 @@ import pr from "../assist/pr.png";
 import py from "../assist/py.png";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { NameCoin } from "../Components";
 
+// Price Sell COmponent
 const PriceSell = ({ handelPrice1 }) => {
 	return (
 		<FormControl>
@@ -28,6 +28,7 @@ const PriceSell = ({ handelPrice1 }) => {
 	);
 };
 
+// Price Buy Component
 const PriceBuy = ({ handelPriceBuy, handleClickUp, handleClickDown }) => {
 	return (
 		<InputGroup size="md">
@@ -50,32 +51,26 @@ const PriceBuy = ({ handelPriceBuy, handleClickUp, handleClickDown }) => {
 	);
 };
 
-const NameCoin = ({ value, src }) => {
-	return (
-		<InputGroup>
-			<FormControl isReadOnly>
-				<Input type="tel" value={value} />
-			</FormControl>
-			<InputLeftAddon
-				children={<Image boxSize="100%" objectFit="cover" src={src} />}
-			/>
-		</InputGroup>
-	);
-};
-
+// Main Component
 const Admin = () => {
+	// UseHistory For Redirect to Clint After Update All Data
 	const history = useHistory();
-	// Key Value For Login
-	const [keyValue, setKeyValue] = useState("");
 
+	// Key Value For Login And Login Stat
+	const [keyValue, setKeyValue] = useState("");
 	const [loginStat, setLoginStat] = useState("");
+
+	// Send Data Login To Backend
 	const sendKey = () => {
 		axios
-			.post("https://crypto-mangement-105.herokuapp.com/login", {
+			// http://localhost:5000 is my Connect Api
+			// You Will Change it to Your Link : like as (https://example.com/)
+			// IMportant ******* Dont Change /prices Cuz that is Params For Call Apu ********
+			.post("http://localhost:5000/login", {
 				keyValue: keyValue,
 			})
 			.then((response) => {
-				setLoginStat(response.data);
+				setLoginStat(response.data.status);
 			})
 			.catch((err) => console.log(err));
 	};
@@ -89,15 +84,12 @@ const Admin = () => {
 	const handelPrice1 = (e) => {
 		setPriceSell1(e.target.value);
 	};
-
 	const handelPrice2 = (e) => {
 		setPriceSell2(e.target.value);
 	};
-
 	const handelPrice3 = (e) => {
 		setPriceSell3(e.target.value);
 	};
-
 	const handelPrice4 = (e) => {
 		setPriceSell4(e.target.value);
 	};
@@ -111,15 +103,12 @@ const Admin = () => {
 	const handelPriceBuy1 = (e) => {
 		setPriceBuy1(e.target.value);
 	};
-
 	const handelPriceBuy2 = (e) => {
 		setPriceBuy2(e.target.value);
 	};
-
 	const handelPriceBuy3 = (e) => {
 		setPriceBuy3(e.target.value);
 	};
-
 	const handelPriceBuy4 = (e) => {
 		setPriceBuy4(e.target.value);
 	};
@@ -163,7 +152,10 @@ const Admin = () => {
 	// Send Data to Backend
 	const sendData = () => {
 		axios
-			.post("https://crypto-mangement-105.herokuapp.com/prices", {
+			// http://localhost:5000 is my Connect Api
+			// You Will Change it to Your Link : like as (https://example.com/)
+			// IMportant ******* Dont Change /prices Cuz that is Params For Call Apu ********
+			.post("http://localhost:5000/prices", {
 				PriceSell1: PriceSell1,
 				PriceSell2: PriceSell2,
 				PriceSell3: PriceSell3,
@@ -190,17 +182,6 @@ const Admin = () => {
 				console.log(err);
 				history.push("/nmradmin");
 			});
-
-		console.log(`
-		${PriceSell1}
-		${PriceSell2}
-		${PriceSell3}
-		${PriceSell4}
-		${PriceBuy1}
-		${PriceBuy2}
-		${PriceBuy3}
-		${PriceBuy4}
-		`);
 	};
 
 	return (
@@ -223,6 +204,7 @@ const Admin = () => {
 							<Input
 								id="key"
 								color="#F2A900"
+								value={keyValue}
 								type="text"
 								onChange={(e) => setKeyValue(e.target.value)}
 							/>
@@ -231,7 +213,7 @@ const Admin = () => {
 							تسجيل الدخول
 						</Button>
 					</Box>
-					{loginStat.length > 0 ? (
+					{loginStat === "OK" ? (
 						<>
 							<Box
 								display="flex"
@@ -292,7 +274,7 @@ const Admin = () => {
 							</Button>
 						</>
 					) : (
-						""
+						<Heading>{loginStat === "" ? "" : "Invalide User"}</Heading>
 					)}
 				</VStack>
 			</Container>

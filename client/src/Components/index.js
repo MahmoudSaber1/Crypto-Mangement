@@ -1,2 +1,3 @@
-export { default as Navbar } from "./Navbar";
-export { default as Tables } from "./Tables";
+export { default as PriceSell } from "./PriceSell";
+export { default as PriceBuy } from "./PriceBuy";
+export { default as NameCoin } from "./NameCoin";

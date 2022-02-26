@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import {
-	Badge,
 	Box,
 	Button,
 	Container,
 	FormControl,
 	FormLabel,
 	Heading,
-	Image,
 	Input,
-	InputGroup,
-	InputLeftElement,
 	Radio,
 	RadioGroup,
 	Select,
@@ -23,66 +19,11 @@ import usdt from "../assist/usdt.png";
 import pr from "../assist/pr.png";
 import py from "../assist/py.png";
 import axios from "axios";
-import { ArrowDownIcon, ArrowUpIcon } from "@chakra-ui/icons";
 
-const PriceSell = ({ value }) => {
-	return (
-		<FormControl isReadOnly>
-			<Input
-				type="text"
-				value={value}
-				fontSize={{ md: "18", base: "12" }}
-				padding={{ md: "1rem", base: ".45rem" }}
-			/>
-		</FormControl>
-	);
-};
+// Import All Components
+import { NameCoin, PriceBuy, PriceSell } from "../Components";
 
-const PriceBuy = ({ value, arrowUp, arrowDown }) => {
-	return (
-		<FormControl isReadOnly>
-			<InputGroup size="md">
-				<InputLeftElement width="2.5rem">
-					<Badge variant="solid" colorScheme={arrowUp ? "green" : "red"}>
-						{arrowUp ? <ArrowUpIcon /> : <ArrowDownIcon />}
-					</Badge>
-				</InputLeftElement>
-				<Input
-					pr="1.5rem"
-					type="text"
-					value={value}
-					fontSize={{ md: "18", base: "12" }}
-					padding={{ md: "1rem", base: ".45rem" }}
-				/>
-			</InputGroup>
-		</FormControl>
-	);
-};
-
-const NameCoin = ({ value, src }) => {
-	return (
-		<InputGroup>
-			<FormControl isReadOnly>
-				<InputGroup size="md">
-					<InputLeftElement>
-						<Image
-							boxSize={{ md: "100%", base: "50%" }}
-							objectFit="cover"
-							src={src}
-						/>
-					</InputLeftElement>
-					<Input
-						type="tel"
-						value={value}
-						fontSize={{ md: "18", base: "10" }}
-						padding={{ md: "1rem", base: ".45rem" }}
-					/>
-				</InputGroup>
-			</FormControl>
-		</InputGroup>
-	);
-};
-
+// Main Component
 const Crypto = () => {
 	newTitle("اسعار الوساطة الفورية في الكريبتو");
 
@@ -98,6 +39,7 @@ const Crypto = () => {
 	const [PriceBuy3, setPriceBuy3] = useState(0);
 	const [PriceBuy4, setPriceBuy4] = useState(0);
 
+	// Arrows Targets
 	const [arrowUp, setArrowUp] = useState("");
 	const [arrowUp2, setArrowUp2] = useState("");
 	const [arrowUp3, setArrowUp3] = useState("");
@@ -107,11 +49,13 @@ const Crypto = () => {
 	const [arrowDown3, setArrowDown3] = useState("");
 	const [arrowDown4, setArrowDown4] = useState("");
 
+	// Algorithm for Calc quantity Taken from user
 	const [quantity, setQuantity] = useState(0);
 	const [coninName, setConinName] = useState("");
 	const [type, setType] = useState("");
 	const [valueSe, setValueSe] = useState(0);
 
+	// Make a Condition For Calculator
 	const valueF = () => {
 		setValueSe(0);
 		if (type === "buy" && coninName === "USDT") {
@@ -133,9 +77,13 @@ const Crypto = () => {
 		}
 	};
 
+	// Make a Call Api And Fetch All Data To State
 	useEffect(() => {
 		axios
-			.get("https://crypto-mangement-105.herokuapp.com/prices")
+			// http://localhost:5000 is my Connect Api
+			// You Will Change it to Your Link : like as (https://example.com/)
+			// IMportant ******* Dont Change /prices Cuz that is Params For Call Apu ********
+			.get("http://localhost:5000/prices")
 			.then((response) => {
 				setPriceSell1(response.data[0].priceSell.pricesell1);
 				setPriceSell2(response.data[0].priceSell.pricesell2);
@@ -159,8 +107,10 @@ const Crypto = () => {
 			})
 			.catch((err) => console.log(err));
 	}, []);
+
 	return (
 		<>
+			{/* Client Design */}
 			<Container maxW="full">
 				<VStack style={{ padding: "50px 0" }} gap="10">
 					<Box
